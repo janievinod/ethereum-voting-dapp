@@ -1,0 +1,18 @@
+import hre from "hardhat";
+
+async function main() {
+  console.log("Deploying Voting contract to Sepolia...");
+
+  const Voting = await hre.ethers.getContractFactory("Voting");
+  const voting = await Voting.deploy();
+
+  await voting.waitForDeployment();
+  const address = await voting.getAddress();
+
+  console.log(`Voting contract successfully deployed to: ${address}`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
